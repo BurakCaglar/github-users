@@ -1,9 +1,41 @@
-import React from 'react';
-import styled from 'styled-components';
-import { GithubContext } from '../context/context';
-import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from './Charts';
+import React from "react";
+import styled from "styled-components";
+import { GithubContext } from "../context/context";
+import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from "./Charts";
 const Repos = () => {
-  return <h2>repos component</h2>;
+  const { repos } = React.useContext(GithubContext);
+
+  let languages = repos.reduce((total, item) => {
+    const { language } = item;
+    if (!language) return total;
+    console.log(language);
+    total["random"] = 30;
+    return total;
+  }, {});
+  console.log(languages);
+  const chartData = [
+    {
+      label: "HTML",
+      value: "13",
+    },
+    {
+      label: "CSS",
+      value: "160",
+    },
+    {
+      label: "Javascript",
+      value: "80",
+    },
+  ];
+
+  return (
+    <section className="section">
+      <Wrapper className="section-center">
+        <Pie3D data={chartData}></Pie3D>
+        {/*  <ExampleChart data={chartData} /> */}
+      </Wrapper>
+    </section>
+  );
 };
 
 const Wrapper = styled.div`
